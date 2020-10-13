@@ -1,0 +1,50 @@
+parseNodes() {
+	let matrix = mat4.create()
+	transformations loop:
+		switch(transformations.tag):
+			//scale
+			matrix = mat4.scale(matrix, matrix, new vec3.fromValues(x,y,z));
+			
+	descendants loop:
+		switch(descendants.tag):
+			//noderef
+			descendants.push(noderef.id);
+			//primitive
+			let prim = new Primitive();
+			descendants.push(prim);
+	
+	this.nodes[nodeId] = new MyNode(nodeId, matrix, descendants,...);
+	
+}
+
+displayScene() {
+	this.processNode(this.idRoot, null, null, null, null);
+
+}
+
+processNode(id, matParent, texParent, matrixParent) {
+	//Apply materials and textures
+	this.scene.pushMatrix()
+	this.scene.multMatrix()
+	
+	loop descendents() {
+		//if leaf/primitive
+		descendants.display()
+		
+		//if noderef
+		this.processNode(descendant.id, ...);
+	}
+	this.scene.popMatrix()
+
+}
+
+parseLights() {
+	this.lights = [];
+	numlights = 0; //maximo 8 luzes, codigo nao deve parar se forem introduzidas mais, mas só deve dar parse de 8
+	for () {
+		check tag light;
+		get light id;
+		check if id is repeated(this.lights[lighID]);
+		lightNodeChild = lightNode.children;
+}
+
