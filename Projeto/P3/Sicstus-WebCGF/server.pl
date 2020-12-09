@@ -107,6 +107,41 @@ parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
 
+% Receives a number and provides a color (text)
+parse_input(color(C), Res) :- color(C,Res).
+
+% Example of how a game might be started, and how Prolog may provide important game information
+parse_input(startgame(Type,Level1,Level2), Res) :-
+	validate_type_of_game(Type,Resp),
+	Res = {
+		'"success"': true,
+		'"typeOfGame"': Resp,
+		'"currentPlayer"': [1, Level1],
+		'"nextPlayer"': [2, Level2],
+		'"board"': [[0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 1, 0, 1, 0],
+		[0, 1, 0, 1, 0, 1, 0, 1],
+		[0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0],
+		[2, 0, 2, 0, 2, 0, 2, 0],
+		[0, 2, 0, 2, 0, 2, 0, 2],
+		[2, 0, 2, 0, 2, 0, 2, 0]],
+		'"countPlayer1"': 0,
+		'"countPlayer2"': 0,
+        '"nTurns"': 0
+	}.
+	
+% Available options for color
+color(0, Res):- Res = {'"success"':true,'"color"':'"red"'}.
+color(1, Res):- Res = {'"success"':true,'"color"':'"blue"'}.
+color(_, Res):-  Res = {'"success"': false}.
+
+% Available options for validating a type of game (defined by the user)
+validate_type_of_game(0, Res):- Res = '"PvP"'.
+validate_type_of_game(1, Res):- Res = '"PvC"'.
+validate_type_of_game(2, Res):- Res = '"CvC"'.
+
+
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
 	

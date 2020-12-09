@@ -1,0 +1,4 @@
+animaçao nao linear - desacelera no fim
+fazer vec3 lerp, mas no final por Math.sin(Math.PI / 2 * timeFactor) em vez de so timeFactor
+
+animaçoes curvas - ver printscreen 16
